@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/cardMarginHorizontal"
+        android:layout_marginTop="@dimen/cardMarginVertical"
+        android:layout_marginRight="@dimen/cardMarginHorizontal"
+        android:layout_marginBottom="@dimen/cardMarginVertical"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:contentPadding="0dp">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/trafName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MSC ERICA"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="1dp" />
+
+
+            <TextView
+                android:id="@+id/tips_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="（船名航次）"
+                android:textSize="18sp"
+
+                app:layout_constraintStart_toEndOf="@+id/trafName"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tips_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:text="提单号："
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tips_name" />
+
+            <TextView
+                android:id="@+id/billNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="177SVDNWN8M894Y"
+                android:textIsSelectable="true"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toEndOf="@+id/tips_no"
+                app:layout_constraintTop_toBottomOf="@+id/tips_name"  />
+
+
+            <TextView
+                android:id="@+id/tips_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="报关单号："
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tips_no"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                />
+
+            <TextView
+                android:id="@+id/entryId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="310120180519762365"
+                android:textIsSelectable="true"
+                app:layout_constraintTop_toBottomOf="@+id/tips_no"
+                app:layout_constraintStart_toEndOf="@+id/tips_id"
+                android:layout_marginTop="5dp"/>
+
+
+
+            <TextView
+                android:id="@+id/tips_consignorCname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收发货人："
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tips_id"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/consignorCname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="浙江正特股份有限公司"
+                android:textIsSelectable="true"
+                app:layout_constraintTop_toBottomOf="@+id/tips_id"
+                app:layout_constraintStart_toEndOf="@+id/tips_consignorCname"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/tips_contacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="客户+操作员："
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tips_consignorCname"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/contacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卓诚-小王"
+                android:textIsSelectable="true"
+                app:layout_constraintTop_toBottomOf="@+id/tips_consignorCname"
+                app:layout_constraintStart_toEndOf="@+id/tips_contacts"
+                android:layout_marginTop="5dp"/>
+
+
+<!--            <Button
+                android:id="@+id/cusDecStatus"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:background="@drawable/button"
+                android:text="海关入库成功"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <com.github.czy1121.view.CornerLabelView
+                style="@style/CornerLabelView.Default"
+                android:id="@+id/cusDecStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:clvFillColor="#03A9F4"
+                app:clvFlags="right|triangle"
+                app:clvPaddingCenter="10dp"
+                app:clvText1="入库成功"
+                app:clvText2="No.1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="5dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf="@+id/tips_contacts"
+                tools:layout_editor_absoluteX="14dp" />
+
+            <TextView
+                android:id="@+id/tips_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="更新于："
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/updateTime"
+                app:layout_constraintTop_toBottomOf="@+id/line" />
+
+            <TextView
+                android:id="@+id/updateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="05-09 14:03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line" />
+
+            <TextView
+                android:id="@+id/tips_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="操作员："
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line"
+                tools:layout_editor_absoluteY="114dp" />
+
+            <TextView
+                android:id="@+id/company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="乾恩"
+                android:textIsSelectable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tips_company"
+                app:layout_constraintTop_toBottomOf="@+id/line" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
