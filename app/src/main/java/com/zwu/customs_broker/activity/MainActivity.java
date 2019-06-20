@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("consignorCname", consignorCname);
                 editor.putString("billNo", billNo);
                 editor.putString("entryId", entryId);
+                editor.putBoolean("switch",true);
                 editor.commit();
                 //recreate();
             }
@@ -225,6 +226,8 @@ public class MainActivity extends AppCompatActivity {
         flowPopWindow.setOnConfirmClickListener(new FlowPopWindow.OnConfirmClickListener() {
             @Override
             public void onConfirmClick() {
+                SharedPreferences sp = getSharedPreferences("context", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
                 for (FiltrateBean fb : dictList) {
                     List<FiltrateBean.Children> cdList = fb.getChildren();
                     boolean is = false;
@@ -232,21 +235,19 @@ public class MainActivity extends AppCompatActivity {
                         FiltrateBean.Children children = cdList.get(x);
                         if (children.isSelected()) {
                             System.out.println("遍历" + x);
-                            SharedPreferences sp = getSharedPreferences("context", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sp.edit();
+
                             editor.putString(fb.getTypeName(), children.getValue());
-                            editor.commit();
+
                             is = true;
                             //sb.append(fb.getTypeName() + ":" + children.getValue() + "；");
                         }
                     }
                     if (is == false) {
-                        SharedPreferences sp = getSharedPreferences("context", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sp.edit();
                         editor.putString(fb.getTypeName(), "");
-                        editor.commit();
                     }
                 }
+                editor.putBoolean("switch", true);
+                editor.commit();
                 //recreate();
             }
         });

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.google.gson.Gson;
@@ -251,18 +252,29 @@ public class AdminViewFragment extends Fragment {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-            singleThreadExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        init(getView(), true);
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+            //Toast.makeText(getActivity(),"onSharedPreferenceChanged",Toast.LENGTH_LONG).show();
+            if(key.equals("switch")){
+                if (sharedPreferences.getBoolean("switch", false)){
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putBoolean("switch", false);
+                    editor.commit();
+                    //Toast.makeText(getActivity(),"if语句",Toast.LENGTH_LONG).show();
+                    singleThreadExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                init(getView(), true);
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
-            });
+
+            }
+
 /*            long time= SystemClock.uptimeMillis();//局部变量
             if (time-lastonclickTime<=1000) {
                 getActivity().runOnUiThread(new Runnable() {
