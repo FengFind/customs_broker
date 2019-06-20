@@ -4,6 +4,8 @@
     <string name="edit_hint1">请输入要查询的报关单号</string>
     <string name="edit_hint2">请输入要查询的提单号</string>
     <string name="edit_hint3">请输入要查询的收发货人</string>
+    <string name="edit_hint4">请输入旧密码</string>
+    <string name="edit_hint5">请输入新密码</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

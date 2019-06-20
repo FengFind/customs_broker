@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="查询选项设置"
+        android:text="修改密码"
         android:textSize="25dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="center"/>
@@ -15,45 +15,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <EditText
-        android:id="@+id/edit_entryId"
-        android:inputType="number"
+        android:id="@+id/old_password"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:textColor="#000000"
         android:ems="20"
         android:theme="@style/MyEditText"
-        android:hint="@string/edit_hint1">
+        android:hint="@string/edit_hint4">
     </EditText>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <EditText
-        android:id="@+id/edit_billNo"
+        android:id="@+id/new_password"
         android:layout_width="match_parent"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:textColor="#000000"
         android:ems="20"
         android:theme="@style/MyEditText"
-        android:hint="@string/edit_hint2">
-    </EditText>
-</android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/edit_consignorCname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:inputType="text"
-        android:textColor="#000000"
-        android:theme="@style/MyEditText"
-        android:ems="20"
-        android:hint="@string/edit_hint3">
+        android:hint="@string/edit_hint5">
     </EditText>
     </android.support.design.widget.TextInputLayout>
 

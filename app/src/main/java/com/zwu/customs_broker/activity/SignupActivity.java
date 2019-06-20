@@ -79,9 +79,7 @@ public class SignupActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        // onSignupFailed();
+                        onSignupSuccess();
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -89,6 +87,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     public void onSignupSuccess() {
+        //debug
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();

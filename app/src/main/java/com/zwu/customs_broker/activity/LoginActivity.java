@@ -3,6 +3,7 @@ package com.zwu.customs_broker.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView _signupLink;
     private ProgressDialog progressDialog;
 
+
     private String username;
     private String password;
 
@@ -52,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ScrollView scrollview = (ScrollView) findViewById(R.id.scrollview);
+
 
         _usernameText = findViewById(R.id.input_username);
         _passwordText = findViewById(R.id.input_password);
@@ -75,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+
+        Intent intent = getIntent();
+
+
+
+        if ( intent.getStringExtra("setpassword")!=null) {
+            Snackbar.make(scrollview, "修改密码成功", Snackbar.LENGTH_LONG).show();
+        }
     }
 
     public void login(final View view) {
@@ -117,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onResponse(Call call, Response response) throws IOException {
                                 String responseData = response.body().string();
                                 Log.d(TAG, "输出:" + responseData);
-                                parseJSONWithGSON(responseData,view);
+                                parseJSONWithGSON(responseData, view);
                             }
                         });
                     }
@@ -154,8 +167,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         username = _usernameText.getText().toString();
-       Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("authorization", authorization);
+        SharedPreferences sp = getSharedPreferences("context", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("authorization", authorization);
+        editor.commit();
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("username", username);
         startActivity(intent);
         finish();
@@ -169,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         LoginActivity.this.runOnUiThread(new Runnable() {
             public void run() {
-                Snackbar.make(view, "登录失败", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "用户名不存在或密码错误", Snackbar.LENGTH_LONG).show();
                 _loginButton.setEnabled(true);
             }
         });
@@ -197,7 +213,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void parseJSONWithGSON(String jsonData,View view) {
+    private void parseJSONWithGSON(String jsonData, View view) {
         //使用轻量级的Gson解析得到的json
         Gson gson = new Gson();
         Login loginList = gson.fromJson(jsonData, new TypeToken<Login>() {
@@ -205,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "code:" + loginList.getCode());
         Log.d(TAG, "info:" + loginList.getUser());
 
-        if(loginList.getCode().equals("success")){
+        if (loginList.getCode().equals("success")) {
             User user = gson.fromJson(gson.toJson(loginList.getUser()), new TypeToken<User>() {
             }.getType());
             Log.d(TAG, "登录验证通过");
@@ -219,9 +235,9 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "qq:" + user.getQQ());
             Log.d(TAG, "name:" + user.getName());
             onLoginSuccess(user.getAuthorization().toString());
-        }else {
+        } else {
             Log.d(TAG, "登录验证未通过");
-            onLoginFailed(view,loginList.getCode());
+            onLoginFailed(view, loginList.getCode());
         }
 
     }

@@ -92,12 +92,17 @@ public class AdminViewPagerAdapter extends RecyclerView.Adapter<AdminViewPagerAd
                 CusDecStatus = "结关";
                 break;
             case "11":
-                CusDecStatus = "查验通过";
+                CusDecStatus = "查验通知";
                 break;
             default:
                 CusDecStatus = "获取异常";
         }
 
+        if(CusDecStatus=="退单"){
+            holder.cusDecStatus.setFillColorResource(R.color.red_f4);
+        }else if(CusDecStatus=="查验通知"){
+            holder.cusDecStatus.setFillColorResource(R.color.orange_f7);
+        }
         holder.cusDecStatus.setText1(CusDecStatus);
         holder.cusDecStatus.setText2(cusDec.getID().toString());
         if (cusDec.getContactsCompany() == null && cusDec.getContactsName() == null) {
