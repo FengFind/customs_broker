@@ -1,3 +1,6 @@
+
+
+
 package com.zwu.customs_broker.fragment;
 
 import android.content.SharedPreferences;
@@ -30,6 +33,8 @@ import com.zwu.customs_broker.util.TimeSwitch;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -42,8 +47,9 @@ public class AdminViewFragment extends Fragment {
     private static final String TAG = "AdminViewFragment";
     private int i = 0;
     private SharedPreferences sp;
-    private long lastonclickTime=0;
+    private long lastonclickTime = 0;
     private String authorization;
+    ExecutorService singleThreadExecutor;
 
     public static Fragment newInstance() {
         return new AdminViewFragment();
@@ -86,7 +92,8 @@ public class AdminViewFragment extends Fragment {
             }
         });*/
 
-
+        //线程池
+        singleThreadExecutor = Executors.newSingleThreadExecutor();
         mRecyclerView = view.findViewById(R.id.recyclerView);
 /*        for (int i = 0; i < ITEMS; i++) {
             items.add(new CusDec());
@@ -110,7 +117,7 @@ public class AdminViewFragment extends Fragment {
             Log.d(TAG, "进行了一次重置");
         }
         String cusDecStatus;
-        switch (sp.getString("报关状态", "")){
+        switch (sp.getString("报关状态", "")) {
             case "保存":
                 cusDecStatus = "1";
                 break;
@@ -145,11 +152,11 @@ public class AdminViewFragment extends Fragment {
         String contactsName;
         String company;
 
-        if(authorization.equals("2")){
+        if (authorization.equals("2")) {
             contactsName = sp.getString("本公司操作员", "");
-            company ="";
-            Log.d(TAG, "当前登录的为用户类型，需要特殊处理，处理后的结果:"+contactsName);
-        }else {
+            company = "";
+            Log.d(TAG, "当前登录的为用户类型，需要特殊处理，处理后的结果:" + contactsName);
+        } else {
             contactsName = sp.getString("对应操作员", "");
             company = sp.getString("本公司操作员", "");
         }
@@ -166,8 +173,8 @@ public class AdminViewFragment extends Fragment {
                 .add("billNo", sp.getString("billNo", ""))
                 .add("entryId", sp.getString("entryId", ""))
                 .add("cusDecStatus", cusDecStatus)
-                .add("toTime",toTime)
-                .add("fromTime",fromTime)
+                .add("toTime", toTime)
+                .add("fromTime", fromTime)
                 .build();
         HttpUtil.sendOkHttpRequest(url, requestBody, new okhttp3.Callback() {
             @Override
@@ -191,14 +198,12 @@ public class AdminViewFragment extends Fragment {
 
 /*
         GsonBuilder builder = new GsonBuilder();
-
         // Register an adapter to manage the date types as long values
         builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
             public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
                 return new Date(json.getAsJsonPrimitive().getAsLong());
             }
         });
-
         Gson gson = builder.create();
 */
 
@@ -221,6 +226,8 @@ public class AdminViewFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         mRecyclerView.setAdapter(new AdminViewPagerAdapter(items));
+                        Snackbar.make(view, "成功加载一条新数据，总数据:" + page.getTotal() +
+                                ",剩余数据:" + ((int) page.getTotal() - i), Snackbar.LENGTH_LONG).show();
                     }
                 });
                 Log.d(TAG, "Total:" + page.getTotal());
@@ -244,7 +251,19 @@ public class AdminViewFragment extends Fragment {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-            long time= SystemClock.uptimeMillis();//局部变量
+            singleThreadExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        init(getView(), true);
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            });
+/*            long time= SystemClock.uptimeMillis();//局部变量
             if (time-lastonclickTime<=1000) {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
@@ -255,7 +274,7 @@ public class AdminViewFragment extends Fragment {
             }else {
                 lastonclickTime=time;
                 init(getView(), true);
-            }
+            }*/
         }
     };
 
